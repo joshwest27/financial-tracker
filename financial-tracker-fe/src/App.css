@@ -1,0 +1,356 @@
+.app {
+  max-width: 55rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.header h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.75rem;
+  color: var(--teal-dark);
+}
+
+.user-email {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-h);
+  cursor: pointer;
+  font: inherit;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.tab:hover {
+  background: var(--accent-bg);
+}
+
+.tab.active {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+  color: var(--teal-dark);
+  font-weight: 500;
+}
+
+.panel {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  background: var(--surface);
+  box-shadow: 0 1px 3px rgba(15, 163, 177, 0.08);
+}
+
+.panel h2 {
+  margin-top: 0;
+  color: var(--text-h);
+}
+
+.auth-panel {
+  max-width: 22rem;
+  margin: 0 auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.form-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.form-row label {
+  flex: 1;
+  min-width: 8rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--text-h);
+}
+
+input,
+select,
+button {
+  font: inherit;
+}
+
+input,
+select {
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-h);
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid var(--blue);
+  border-color: var(--teal);
+}
+
+button[type='submit'],
+.form button:not(.link-button):not(.danger-button):not(.secondary-button) {
+  padding: 0.55rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.15s ease;
+}
+
+button[type='submit']:hover:not(:disabled),
+.form button:not(.link-button):not(.danger-button):not(.secondary-button):hover {
+  background: var(--accent-hover);
+}
+
+button[type='submit']:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.secondary-button {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-h);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s ease;
+}
+
+.secondary-button:hover {
+  background: var(--accent-bg);
+}
+
+.danger-button {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--peach-dark);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--peach-dark);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.15s ease;
+}
+
+.danger-button:hover {
+  background: rgba(247, 160, 114, 0.2);
+}
+
+.link-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--teal-dark);
+  cursor: pointer;
+  text-decoration: underline;
+  font: inherit;
+}
+
+.error {
+  color: var(--peach-dark);
+  margin: 0.5rem 0 0;
+}
+
+.empty {
+  color: var(--text);
+  margin: 1rem 0 0;
+}
+
+.list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.list-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+}
+
+.badge-expense {
+  background: rgba(247, 160, 114, 0.35);
+  color: var(--peach-dark);
+}
+
+.badge-income {
+  background: rgba(15, 163, 177, 0.2);
+  color: var(--teal-dark);
+}
+
+.auth-toggle {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.summary-controls {
+  margin-bottom: 0.5rem;
+}
+
+.summary-period {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 540px) {
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.summary-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.summary-label {
+  font-size: 0.8rem;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.summary-card-income {
+  background: rgba(181, 226, 250, 0.35);
+  border-color: rgba(15, 163, 177, 0.35);
+}
+
+.summary-card-income strong {
+  color: var(--teal-dark);
+}
+
+.summary-card-expense {
+  background: rgba(247, 160, 114, 0.2);
+  border-color: rgba(247, 160, 114, 0.45);
+}
+
+.summary-card-expense strong {
+  color: var(--peach-dark);
+}
+
+.summary-card-positive {
+  background: rgba(237, 222, 164, 0.35);
+  border-color: rgba(15, 163, 177, 0.3);
+}
+
+.summary-card-positive strong {
+  color: var(--teal-dark);
+}
+
+.summary-card-negative {
+  background: rgba(247, 160, 114, 0.25);
+  border-color: rgba(217, 106, 52, 0.4);
+}
+
+.summary-card-negative strong {
+  color: var(--peach-dark);
+}
+
+.breakdown-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 720px) {
+  .breakdown-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.breakdown-section {
+  margin-top: 0;
+}
+
+.breakdown-section h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  text-align: center;
+  color: var(--text-h);
+}
+
+.pie-chart-wrap {
+  width: 100%;
+  min-height: 280px;
+}
+
+.pie-chart-wrap .recharts-legend-item-text {
+  font-size: 0.85rem;
+}
+
+.pie-chart-wrap .recharts-pie-label-text {
+  font-size: 0.75rem;
+  fill: var(--text-h);
+}

@@ -58,13 +58,100 @@ Many people want a lightweight way to record transactions and see totals for a m
 
 | Target | Focus |
 | --- | --- |
-| **Week 6** | Proposal submitted; Repository layout (`/server`, `/client`). |
+| **Week 6** | Proposal submitted; repository layout (API at root, `financial-tracker-fe/`). |
 | **Week 7 & 8** | Express + MongoDB; User + JWT auth; Categories and Transactions CRUD with indexes; minimal React app proving end-to-end flow. |
 | **Week 9** | Monthly report (aggregation / `$lookup`); summary/analytics UI; API tests above **80%** coverage; README run instructions. |
 | **Week 10** | Rehearse & present the **5-minute** demo. |
 
 ---
 
-## Repo status
+## Project structure
 
-Proposal only for now; implementation begins after the proposal deadline.
+| Path | Purpose |
+| --- | --- |
+| Root (`index.js`, `server.js`, …) | Express API |
+| `models/`, `daos/`, `routes/`, `middleware/` | Backend layers (class pattern) |
+| `financial-tracker-fe/` | React (Vite) client |
+
+## Local development
+
+**Prerequisites:** Node 20+, MongoDB running locally (or set `MONGO_URL`).
+
+**API**
+
+```bash
+cp .env.example .env
+# edit JWT_SECRET in .env
+npm install
+npm run dev
+```
+
+API runs at `http://localhost:3000`.
+
+**Front-end**
+
+```bash
+cd financial-tracker-fe
+npm install
+npm run dev
+```
+
+App runs at `http://localhost:5173`. Vite proxies API routes to the backend in dev.
+
+**Try the app:** register or log in → add categories → add transactions → view the **Summary** tab for monthly totals and category breakdown.
+
+**Tests**
+
+```bash
+npm test
+npm run test:coverage
+```
+
+Jest loads `JWT_SECRET` automatically for tests via `jest.setup.js`. Coverage target is **> 80%** on API routes and supporting code.
+
+## Deploy to Railway (optional)
+
+Use **two services** in one Railway project, both connected to the same GitHub repo.
+
+### 1. API service
+
+| Setting | Value |
+| --- | --- |
+| Root directory | `/` (repo root) |
+| Build command | *(leave default — `npm install`)* |
+| Start command | `npm start` |
+
+**Variables**
+
+| Variable | Example |
+| --- | --- |
+| `MONGO_URL` | Atlas URI with DB name, e.g. `mongodb+srv://...@cluster.net/financial-tracker?...` |
+| `JWT_SECRET` | Long random string |
+| `CLIENT_ORIGIN` | Front-end Railway URL, e.g. `https://your-fe.up.railway.app` |
+
+Railway sets `PORT` automatically. After deploy, verify: `GET https://your-api.up.railway.app/health`.
+
+**Atlas:** allow Railway in Network Access (e.g. `0.0.0.0/0` for a class demo).
+
+### 2. Front-end service
+
+| Setting | Value |
+| --- | --- |
+| Root directory | `financial-tracker-fe` |
+| Build command | `npm install && npm run build` |
+| Start command | `npm start` |
+
+**Variables**
+
+| Variable | Example |
+| --- | --- |
+| `VITE_API_URL` | API Railway URL, e.g. `https://your-api.up.railway.app` |
+
+`VITE_API_URL` is baked in at **build** time — set it before deploying (or redeploy after changing it).
+
+### 3. Deploy order
+
+1. Deploy the **API** and confirm `/health` works.
+2. Deploy the **FE** with `VITE_API_URL` pointing at the API.
+3. Set **`CLIENT_ORIGIN`** on the API to the FE URL (update and redeploy if the FE URL was unknown at first).
+4. Register a user on the live app and confirm data appears in Atlas.

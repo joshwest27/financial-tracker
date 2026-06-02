@@ -156,11 +156,21 @@ Railway sets `PORT` automatically. After deploy, verify: `GET https://your-api.u
 3. Set **`CLIENT_ORIGIN`** on the API to the FE URL (update and redeploy if the FE URL was unknown at first).
 4. Register a user on the live app and confirm data appears in Atlas.
 
+### 4. Live deployment
+
+| Service | URL |
+| --- | --- |
+| **App (front-end)** | <https://financial-tracker-fe-production.up.railway.app> |
+| **API** | <https://financial-tracker-production-api.up.railway.app> |
+| **Health check** | <https://financial-tracker-production-api.up.railway.app/health> |
+
+**Atlas:** Network Access must allow Railway (e.g. `0.0.0.0/0`). If the API returns **502**, check that this rule has not expired and that `CLIENT_ORIGIN` on the API matches the front-end URL exactly.
+
 ---
 
 ## Update Breakdown
 
-Status as of the current codebase.
+Status as of the current codebase (deployed and smoke-tested on Railway).
 
 ### Complete
 
@@ -175,18 +185,17 @@ Status as of the current codebase.
 | **Indexes** | Unique compound on categories `(userId, name)`; indexes on `userId`, transaction `date`, and `categoryId`. |
 | **Aggregation / lookup** | `GET /reports/monthly` uses `$match`, `$lookup` (categories), and `$group` for monthly totals and per-category breakdown. |
 | **API tests & coverage** | Jest + Supertest for auth, categories, transactions, and reports; coverage **> 80%** (statements/lines threshold in `package.json`). |
-| **React front-end (local)** | Register / log in / log out; Categories tab (add, list, delete); Transactions tab (add, list, delete); Summary tab (month picker, income/expense totals, balance, pie charts by category). |
+| **React front-end** | Register / log in / log out; Categories tab (add, list, delete); Transactions tab (add, list, delete); Summary tab (month picker, income/expense totals, balance, pie charts by category). Works locally and on Railway. |
 | **README** | Local dev, test commands, and Railway deploy instructions. |
-| **Railway — API** | Backend service already deployed (MongoDB Atlas, `JWT_SECRET`, health check). |
+| **Railway — API** | Deployed with MongoDB Atlas, `JWT_SECRET`, and `CLIENT_ORIGIN` set to the front-end URL. |
+| **Railway — front-end** | Deployed from `financial-tracker-fe` with `VITE_API_URL` pointing at the live API. |
+| **Live smoke test** | Register, categories, transactions, Summary totals/charts, and data confirmed in Atlas — all passing. |
 
 ### Remaining
 
 | Area | Status |
 | --- | --- |
-| **Railway — front-end** | Add the **front-end service** only (see [Deploy to Railway](#deploy-to-railway-optional) §2): root `financial-tracker-fe`, build `npm install && npm run build`, start `npm start`, set `VITE_API_URL` to the live API URL before build. |
-| **Railway — CORS** | After the FE URL is known, set **`CLIENT_ORIGIN`** on the API to that URL (redeploy API if it was not set when the FE went live). |
-| **Live smoke test** | Register on the deployed app, add categories and transactions, open Summary, confirm data in Atlas. |
-| **Week 10 demo** | Presentation |
+| **Week 10 demo** | Presentation (auth → categories → transactions → Summary). |
 
 ### Optional (if time permits)
 
